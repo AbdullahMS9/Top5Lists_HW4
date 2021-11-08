@@ -9,7 +9,8 @@ console.log("create AuthContext: " + AuthContext);
 export const AuthActionType = {
     GET_LOGGED_IN: "GET_LOGGED_IN",
     REGISTER_USER: "REGISTER_USER",
-    LOGGED_USER: "LOGGED_USER"
+    LOGGED_USER: "LOGGED_USER",
+    LOGGED_OUT_USER: "LOGGED_OUT_USER"
 }
 
 function AuthContextProvider(props) {
@@ -36,12 +37,19 @@ function AuthContextProvider(props) {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true
-                });
+                })
             }
             case AuthActionType.LOGGED_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true
+                })
+                
+            }
+            case AuthActionType.LOGGED_OUT_USER: {
+                return setAuth({
+                    user: null,
+                    loggedIn: false
                 })
             }
             default:
@@ -53,7 +61,7 @@ function AuthContextProvider(props) {
         const response = await api.getLoggedIn();
         if (response.status === 200) {
             authReducer({
-                type: AuthActionType.SET_LOGGED_IN,
+                type: AuthActionType.GET_LOGGED_IN,
                 payload: {
                     loggedIn: response.data.loggedIn,
                     user: response.data.user
@@ -83,11 +91,21 @@ function AuthContextProvider(props) {
                 type: AuthActionType.LOGGED_USER,
                 payload: {
                     user: response.data.user,
-                    loggedIn: true
                 }
             })
             history.push("/");
             store.loadIdNamePairs();
+        }
+    }
+
+    auth.logoutUser = async function () {
+        const response = await api.logoutUser();
+        if(response.status === 200) {
+            authReducer({
+                type: AuthActionType.LOGGED_OUT_USER,
+                payload: null
+            })
+            history.push("/");
         }
     }
 

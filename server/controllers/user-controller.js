@@ -82,7 +82,7 @@ loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         if (!email || !password) {
-            return res.status(401).json({errorMessage: "Please enter a correct username and password."});
+            return res.status(400).json({errorMessage: "Please enter a correct username and password."});
         }
         const existingUser = await User.findOne({email: email});
         if (!existingUser) {
@@ -115,5 +115,6 @@ loginUser = async (req, res) => {
 module.exports = {
     getLoggedIn,
     registerUser,
-    loginUser
+    loginUser,
+    logoutUser
 }
