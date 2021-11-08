@@ -81,7 +81,7 @@ export default function AppBanner() {
     }
     
     function getAccountMenu(loggedIn) {
-        if (loggedIn){return auth.user.firstName.at(0) + auth.user.lastName.at(0);}
+        if (loggedIn){return auth.user.firstName.at(0).toUpperCase() + auth.user.lastName.at(0).toUpperCase();}
         return <AccountCircle />;
     }
 
