@@ -10,13 +10,16 @@ export const AuthActionType = {
     GET_LOGGED_IN: "GET_LOGGED_IN",
     REGISTER_USER: "REGISTER_USER",
     LOGGED_USER: "LOGGED_USER",
-    LOGGED_OUT_USER: "LOGGED_OUT_USER"
+    LOGGED_OUT_USER: "LOGGED_OUT_USER",
+    ERROR_DISPLAY: "ERROR_DISPLAY",
+    CLOSE_ERROR_DISPLAY: "CLOSE_ERROR_DISPLAY",
 }
 
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        error: null
     });
     const history = useHistory();
 
@@ -31,18 +34,21 @@ function AuthContextProvider(props) {
                 return setAuth({
                     user: payload.user,
                     loggedIn: payload.loggedIn
+                    ,error: null
                 });
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true
+                    ,error: null
                 })
             }
             case AuthActionType.LOGGED_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true
+                    ,error: null
                 })
                 
             }
@@ -50,6 +56,21 @@ function AuthContextProvider(props) {
                 return setAuth({
                     user: null,
                     loggedIn: false
+                    ,error: null
+                })
+            }
+            case AuthActionType.ERROR_DISPLAY: {
+                return setAuth({
+                    user: payload.user,
+                    loggedIn: payload.loggedIn
+                    ,error: payload.error
+                })
+            }
+            case AuthActionType.CLOSE_ERROR_DISPLAY: {
+                return setAuth({
+                    user: auth.user,
+                    loggedIn: auth.loggedIn
+                    ,error: null
                 })
             }
             default:
@@ -71,30 +92,49 @@ function AuthContextProvider(props) {
     }
 
     auth.registerUser = async function(userData, store) {
-        const response = await api.registerUser(userData);      
-        if (response.status === 200) {
+        try{
+            const response = await api.registerUser(userData);      
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.REGISTER_USER,
+                    payload: {
+                        user: response.data.user
+                    }
+                })
+                history.push("/");
+                store.loadIdNamePairs();
+            }
+        } catch (errorMsg) { 
             authReducer({
-                type: AuthActionType.REGISTER_USER,
+                type: AuthActionType.ERROR_DISPLAY,
                 payload: {
-                    user: response.data.user
+                    error: errorMsg.response.data.errorMessage
+
                 }
             })
-            history.push("/");
-            store.loadIdNamePairs();
         }
     }
 
     auth.loginUser = async function(userData, store) {
-        const response = await api.loginUser(userData)
-        if (response.status === 200) {
+        try{
+            const response = await api.loginUser(userData)
+            if (response.status === 200) {
+                authReducer({
+                    type: AuthActionType.LOGGED_USER,
+                    payload: {
+                        user: response.data.user,
+                    }
+                })
+                history.push("/");
+                store.loadIdNamePairs();
+            }
+        } catch (errorMsg){
             authReducer({
-                type: AuthActionType.LOGGED_USER,
+                type: AuthActionType.ERROR_DISPLAY,
                 payload: {
-                    user: response.data.user,
+                    error: errorMsg.response.data.errorMessage
                 }
             })
-            history.push("/");
-            store.loadIdNamePairs();
         }
     }
 
@@ -107,6 +147,13 @@ function AuthContextProvider(props) {
             })
             history.push("/");
         }
+    }
+
+    auth.closeError = function () {
+        authReducer({
+            type: AuthActionType.CLOSE_ERROR_DISPLAY,
+            payload: null
+        })
     }
 
     return (

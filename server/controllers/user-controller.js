@@ -112,6 +112,19 @@ loginUser = async (req, res) => {
     }
 }
 
+logoutUser = async (req, res) => {
+    try {
+        await res.cookie("token", "", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
+        }).status(200).send();
+    } catch (err) {
+        console.log(err);
+        res.status(500).send;
+    }
+}
+
 module.exports = {
     getLoggedIn,
     registerUser,
