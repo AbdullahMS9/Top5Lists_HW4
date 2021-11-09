@@ -23,20 +23,19 @@ export default function ErrorModal() {
   const [open, setOpen] = useState(true);
   const handleClose = () => {setOpen(false);};
 
-  let modal = (auth.error)?
-    <div>
-        <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <Box sx={style}>
-                <Alert severity = "error">{auth.error}</Alert>
-                <Button variant = "text" onClick = {auth.closeError}> Hide </Button>
-            </Box>
-        </Modal>
-    </div>:"";
-
-  return (modal);
+  return (
+    (auth.error)?
+      <div>
+          <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+              <Box sx={style}>
+                  <Alert severity = "error">{auth.error}</Alert>
+                  <Button variant = "text" onClick = {auth.closeError}> Hide </Button>
+              </Box>
+          </Modal>
+      </div>:"");
 }

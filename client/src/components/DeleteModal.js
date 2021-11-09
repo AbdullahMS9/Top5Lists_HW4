@@ -30,21 +30,21 @@ export default function DeleteModal() {
     store.deleteMarkedList()
   }
 
-  let modal = (store.listMarkedForDeletion)?
-    <div>
-        <Modal
-            open={true}
-            onClose={handleCancel}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Alert severity = "error"> Delete the Top 5 {store.listMarkedForDeletion.name}?</Alert>
-            <Button variant = "text" onClick = {handleDeleteList}> Confirm </Button>
-            <Button variant = "text" onClick = {handleCancel}> Cancel </Button>
-          </Box>
-        </Modal>
-    </div>:"";
-
-  return (modal);
+  return (
+    (store.listMarkedForDeletion)?
+      <div>
+          <Modal
+              open={true}
+              onClose={handleCancel}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <Alert severity = "error"> Delete the Top 5 {store.listMarkedForDeletion.name}?</Alert>
+              <Button variant = "text" onClick = {handleDeleteList}> Confirm </Button>
+              <Button variant = "text" onClick = {handleCancel}> Cancel </Button>
+            </Box>
+          </Modal>
+      </div>
+      :"");
 }
