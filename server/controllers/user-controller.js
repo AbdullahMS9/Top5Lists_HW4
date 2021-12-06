@@ -24,6 +24,15 @@ registerUser = async (req, res) => {
                 .status(400)
                 .json({ errorMessage: "Please enter all required fields." });
         }
+        const existingUsername = await User.findOne({ username: username});
+        if(existingUsername) {
+            return res
+                .status(400)
+                .json({
+                    success: false,
+                    errorMessage: "Username is already in use."
+                })
+        }
         if (password.length < 8) {
             return res
                 .status(400)

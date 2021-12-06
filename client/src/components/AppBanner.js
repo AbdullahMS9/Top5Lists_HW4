@@ -11,6 +11,7 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import { useLocation } from 'react-router-dom';
 
 export default function AppBanner() {
     const { auth } = useContext(AuthContext);
@@ -113,9 +114,10 @@ export default function AppBanner() {
         return <AccountCircle />;
     }
 
-    return (
+    const location = useLocation();
+    return (auth.loggedIn)?(
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
+            <AppBar position="static" style ={{background: "#81a5a3"}}>
                 <Toolbar>
                     <Typography                        
                         variant="h4"
@@ -145,5 +147,5 @@ export default function AppBanner() {
                 menu
             }
         </Box>
-    );
+    ):("");
 }

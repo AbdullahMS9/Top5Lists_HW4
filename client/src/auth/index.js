@@ -126,7 +126,7 @@ function AuthContextProvider(props) {
                         user: response.data.user,
                     }
                 })
-                history.push("/");
+                history.push("/lists/");
                 store.loadIdNamePairs();
             }
         } catch (errorMsg){
