@@ -34,7 +34,7 @@ const App = () => {
                         <Route path="/top5list/:id" exact component={WorkspaceScreen} />
                         <Route path="/login/" exact component={LoginScreen} />
                     </Switch>
-                    <Statusbar />
+                    {/*<Statusbar />*/}
                 </GlobalStoreContextProvider>
             </AuthContextProvider>
         </BrowserRouter>

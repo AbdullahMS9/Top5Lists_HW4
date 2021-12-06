@@ -39,7 +39,7 @@ const HomeScreen = () => {
         <div id="top5-list-selector">
             <DeleteModal />
             <div id="list-selector-heading">
-                <Fab 
+                {/*<Fab 
                     color="primary" 
                     aria-label="add"
                     id="add-list-button"
@@ -47,7 +47,7 @@ const HomeScreen = () => {
                 >
                     <AddIcon />
                 </Fab>
-                <Typography variant="h2">Your Lists</Typography>
+                <Typography variant="h2">Your Lists</Typography>*/}
             </div>
             <div id="list-selector-list">
                 {

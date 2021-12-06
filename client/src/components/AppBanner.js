@@ -47,12 +47,13 @@ export default function AppBanner() {
             }}
             open={isMenuOpen}
             onClose={handleMenuClose}
-        >
+        >{/*
             <MenuItem onClick={handleMenuClose}><Link to='/register/'>Create New Account</Link></MenuItem>
             <MenuItem onClick={handleMenuClose}><Link to='/login/'>Login to Existing Account</Link></MenuItem>
-        </Menu>
+            <MenuItem onClick={handleMenuClose}><Link to='/guest/'>Continue As Guest</Link></MenuItem>
+        */}</Menu>
     );
-    const loggedInMenu = 
+    const loggedInMenu = (
         <Menu
             anchorEl={anchorEl}
             anchorOrigin={{
@@ -69,7 +70,27 @@ export default function AppBanner() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
-        </Menu>        
+        </Menu>   );
+        
+    const guestMenu = (
+        <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            id={menuId}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={isMenuOpen}
+            onClose={handleMenuClose}
+        >
+            <MenuItem onClick={handleMenuClose}><Link to='/'>Return to Welcome Page</Link></MenuItem>
+        </Menu>
+    );
 
     let editToolbar = "";
     let menu = loggedOutMenu;
@@ -79,6 +100,13 @@ export default function AppBanner() {
             editToolbar = <EditToolbar />;
         }
     }
+    if (auth.guest) {
+        menu = guestMenu;
+        if (store.currentList) {
+            editToolbar = <EditToolbar />;
+        }
+    }
+    
     
     function getAccountMenu(loggedIn) {
         if (loggedIn){return auth.user.firstName.at(0).toUpperCase() + auth.user.lastName.at(0).toUpperCase();}
