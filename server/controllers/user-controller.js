@@ -10,6 +10,7 @@ getLoggedIn = async (req, res) => {
             user: {
                 firstName: loggedInUser.firstName,
                 lastName: loggedInUser.lastName,
+                username: loggedInUser.username,
                 email: loggedInUser.email
             }
         }).send();
@@ -47,7 +48,7 @@ registerUser = async (req, res) => {
                     errorMessage: "Please enter the same password twice."
                 })
         }
-        const existingUser = await User.findOne({ username: username });
+        const existingUser = await User.findOne({ email: email });
         if (existingUser) {
             return res
                 .status(400)

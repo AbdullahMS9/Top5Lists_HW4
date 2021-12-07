@@ -36,6 +36,7 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: payload.loggedIn
                     ,error: null
+                    ,guest: null
                 });
             }
             case AuthActionType.REGISTER_USER: {
@@ -43,6 +44,7 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: true
                     ,error: null
+                    ,guest: null
                 })
             }
             case AuthActionType.LOGGED_USER: {
@@ -50,6 +52,7 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: true
                     ,error: null
+                    ,guest: null
                 })
                 
             }
@@ -58,6 +61,7 @@ function AuthContextProvider(props) {
                     user: null,
                     loggedIn: false
                     ,error: null
+                    ,guest: null
                 })
             }
             case AuthActionType.ERROR_DISPLAY: {
@@ -126,7 +130,7 @@ function AuthContextProvider(props) {
                         user: response.data.user,
                     }
                 })
-                history.push("/lists/");
+                history.push("/");
                 store.loadIdNamePairs();
             }
         } catch (errorMsg){

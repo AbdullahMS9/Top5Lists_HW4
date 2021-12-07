@@ -6,6 +6,13 @@ import ListItem from '@mui/material/ListItem';
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import ThumbDownOffAltIcon from '@mui/icons-material/ThumbDownOffAlt';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 /*
     This is a card in our list of top 5 lists. It lets select
@@ -19,6 +26,17 @@ function ListCard(props) {
     const [editActive, setEditActive] = useState(false);
     const [text, setText] = useState("");
     const { idNamePair } = props;
+    const { list } = props;
+
+    function handleListOpen(){
+
+    }
+    function handleLike(){
+
+    }
+    function handleDislike(){
+    
+    }
 
     function handleLoadList(event, id) {
         if (!event.target.disabled) {
@@ -55,34 +73,50 @@ function ListCard(props) {
     function handleUpdateText(event) {
         setText(event.target.value);
     }
+    
 
     let cardElement =
         <ListItem
-            id={idNamePair._id}
-            key={idNamePair._id}
+            id={list._id}
+            key={list._id}
             sx={{ marginTop: '15px', display: 'flex', p: 1 }}
             button
             onClick={(event) => {
-                handleLoadList(event, idNamePair._id)
+                handleLoadList(event, list._id)
             }
             }
             style={{
-                fontSize: '48pt',
-                width: '100%'
+                fontSize: '25pt',
+                width: '100%',
+                borderRadius: "23px",
+                backgroundColor: "white"
             }}
         >
-                <Box sx={{ p: 1, flexGrow: 1 }}>{idNamePair.name}</Box>
-                <Box sx={{ p: 1 }}>
-                    <IconButton onClick={handleToggleEdit} aria-label='edit'>
-                        <EditIcon style={{fontSize:'48pt'}} />
-                    </IconButton>
+                <Box sx={{ p: 1, flexGrow: 1 }}>
+                    {list.name} <br/> 
+                    <div style={{fontSize: '10pt'}}>By: {list.ownerUsername}</div><br/>
+                    <Button variant="text">Edit</Button>
                 </Box>
                 <Box sx={{ p: 1 }}>
-                    <IconButton onClick={(event) => {
-                        handleDeleteList(event, idNamePair._id)
-                    }} aria-label='delete'>
-                        <DeleteIcon style={{fontSize:'48pt'}} />
+                <IconButton onClick={handleLike} aria-label='edit'>
+                        <ThumbUpOffAltIcon style={{fontSize:'29pt'}} />
+                        <div style={{fontSize: '10pt'}}>{list.likes}</div>
                     </IconButton>
+
+                    <IconButton onClick={handleDislike} aria-label='edit'>
+                        <ThumbDownOffAltIcon style={{fontSize:'29pt'}} />
+                        <div style={{fontSize: '10pt'}}>{list.dislikes}</div>
+                    </IconButton>
+
+                    <IconButton onClick={(event) => {handleDeleteList(event, list._id)}} aria-label='delete'>
+                        <DeleteIcon style={{fontSize:'29pt'}} />
+                    </IconButton>
+
+                    <br/><div> Views:{list.views} 
+                        <IconButton onClick={handleListOpen} aria-label='edit'>
+                            <KeyboardArrowDownIcon style={{fontSize:'30pt', alignItems: "left"}} />
+                        </IconButton>
+                    </div>
                 </Box>
         </ListItem>
 
@@ -92,14 +126,14 @@ function ListCard(props) {
                 margin="normal"
                 required
                 fullWidth
-                id={"list-" + idNamePair._id}
+                id={"list-" + list._id}
                 label="Top 5 List Name"
                 name="name"
                 autoComplete="Top 5 List Name"
                 className='list-card'
                 onKeyPress={handleKeyPress}
                 onChange={handleUpdateText}
-                defaultValue={idNamePair.name}
+                defaultValue={list.name}
                 inputProps={{style: {fontSize: 48}}}
                 InputLabelProps={{style: {fontSize: 24}}}
                 autoFocus
