@@ -94,18 +94,18 @@ function ListCard(props) {
         >
                 <Box sx={{ p: 1, flexGrow: 1 }}>
                     {list.name} <br/> 
-                    <div style={{fontSize: '10pt'}}>By: {list.ownerUsername}</div><br/>
+                    <div style={{fontSize: '9pt'}}>By: {list.ownerUsername}</div><br/>
                     <Button variant="text">Edit</Button>
                 </Box>
                 <Box sx={{ p: 1 }}>
                 <IconButton onClick={handleLike} aria-label='edit'>
                         <ThumbUpOffAltIcon style={{fontSize:'29pt'}} />
-                        <div style={{fontSize: '10pt'}}>{list.likes}</div>
+                        <div style={{fontSize: '9pt'}}>{list.likes}</div>
                     </IconButton>
 
                     <IconButton onClick={handleDislike} aria-label='edit'>
                         <ThumbDownOffAltIcon style={{fontSize:'29pt'}} />
-                        <div style={{fontSize: '10pt'}}>{list.dislikes}</div>
+                        <div style={{fontSize: '9pt'}}>{list.dislikes}</div>
                     </IconButton>
 
                     <IconButton onClick={(event) => {handleDeleteList(event, list._id)}} aria-label='delete'>
@@ -114,7 +114,7 @@ function ListCard(props) {
 
                     <br/><div> Views:{list.views} 
                         <IconButton onClick={handleListOpen} aria-label='edit'>
-                            <KeyboardArrowDownIcon style={{fontSize:'30pt', alignItems: "left"}} />
+                            <KeyboardArrowDownIcon style={{fontSize:'29pt', alignItems: "left"}} />
                         </IconButton>
                     </div>
                 </Box>

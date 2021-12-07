@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { GlobalStoreContext } from '../store'
 import ListCard from './ListCard.js'
 import { Fab, Typography } from '@mui/material'
@@ -35,7 +35,7 @@ const HomeScreen = () => {
             {
                 store.seenLists.map((list) => (
                     <ListCard
-                        list={list._id}
+                        key={list._id}
                         list={list}
                         selected={false}
                     />

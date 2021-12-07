@@ -69,6 +69,7 @@ function AuthContextProvider(props) {
                     user: payload.user,
                     loggedIn: payload.loggedIn
                     ,error: payload.error
+                    ,guest: null
                 })
             }
             case AuthActionType.CLOSE_ERROR_DISPLAY: {
@@ -76,6 +77,7 @@ function AuthContextProvider(props) {
                     user: auth.user,
                     loggedIn: auth.loggedIn
                     ,error: null
+                    ,guest: null
                 })
             }
             default:
