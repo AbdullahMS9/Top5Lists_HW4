@@ -41,7 +41,7 @@ function ListCard(props) {
     function handleLoadList(event, id) {
         if (!event.target.disabled) {
             // CHANGE THE CURRENT LIST
-            store.setCurrentList(id);
+            //store.setCurrentList(id);
         }
     }
 
@@ -53,7 +53,7 @@ function ListCard(props) {
     function toggleEdit() {
         let newActive = !editActive;
         if (newActive) {
-            store.setIsListNameEditActive();
+            store.setCurrentList(list._id);
         }
         setEditActive(newActive);
     }
@@ -95,7 +95,7 @@ function ListCard(props) {
                 <Box sx={{ p: 1, flexGrow: 1 }}>
                     {list.name} <br/> 
                     <div style={{fontSize: '9pt'}}>By: {list.ownerUsername}</div><br/>
-                    <Button variant="text">Edit</Button>
+                    <Button onClick={toggleEdit} variant="text">Edit</Button>
                 </Box>
                 <Box sx={{ p: 1 }}>
                 <IconButton onClick={handleLike} aria-label='edit'>
@@ -120,7 +120,7 @@ function ListCard(props) {
                 </Box>
         </ListItem>
 
-    if (editActive) {
+    if (list.isPublished) {
         cardElement =
             <TextField
                 margin="normal"

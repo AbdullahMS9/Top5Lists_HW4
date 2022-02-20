@@ -83,7 +83,7 @@ function GlobalStoreContextProvider(props) {
                     isListNameEditActive: false,
                     isItemEditActive: false,
                     listMarkedForDeletion: null
-                    ,seenLists: null,
+                    ,seenLists: store.seenLists,
 
                 })
             }
